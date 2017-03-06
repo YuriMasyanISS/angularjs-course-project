@@ -54,7 +54,6 @@ angular.module('app')
     cards: '<',
   },
   template: `
-9999999999999999999
 <div class="container">
   <div class="row">
     <div class="col-md-12">

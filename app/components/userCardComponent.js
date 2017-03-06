@@ -35,7 +35,6 @@ angular.module('app').component('userCardComponent', {
     callbackSwitchon: '&switchon'
   },
   template: `
-88888888888
 <div class="container">
   <div class="row">
     <div class="col-md-12">
