@@ -6,6 +6,63 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
   // An array of state definitions
   let states = [
     {
+      name: 'common',
+      url: '/common',
+      // component: 'userListComponent',
+      template: `
+<div class="container-fluid">
+    <!--<div ncy-breadcrumb></div>-->
+<common-component search="search.searchField"></common-component>
+
+    <div class="mail row">
+
+
+<ui-view></ui-view>
+
+<!-- inbox -->
+    </div><!-- mail -->
+</div>
+`, //templateUrl
+      ncyBreadcrumb: {
+        label: 'common',
+      },
+      controller: function ($scope) {
+        $scope.model = {Name : "xxx"}
+        // $scope.search={searchField:'123451'};
+      }
+      // resolve: {
+      //   cards: function(ContactService) {
+      //     return ContactService.getAllContact();
+      //   }
+      // }
+    },
+    {
+      name: 'common.newMail',
+      url: '/newmail',
+      // component: 'userListComponent',
+      template: `
+<new-mail-component search="search.searchField"></new-mail-component>
+`, //templateUrl
+      ncyBreadcrumb: {
+        label: '',
+      },
+      controller: function ($scope) {
+      }
+    },
+    {
+      name: 'common.newContact',
+      url: '/newContact',
+      // component: 'userListComponent',
+      template: `
+<new-contact-component search="search.searchField"></new-contact-component>
+`, //templateUrl
+      ncyBreadcrumb: {
+        label: '',
+      },
+      controller: function ($scope) {
+      }
+    },
+    {
       name: 'register',
       url: '/register',
       // component: 'userListComponent',
@@ -14,8 +71,8 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
         label: 'register',
       },
       // resolve: {
-      //   cards: function(PeopleService) {
-      //     return PeopleService.getAllPeople();
+      //   cards: function(ContactService) {
+      //     return ContactService.getAllContact();
       //   }
       // }
     } ,
@@ -29,30 +86,30 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
       },
     },
     {
-      name: 'contacts',
+      name: 'common.contacts',
       url: '/contacts',
       // component: 'userListComponent',
-      template: '<user-list-component cards="$resolve.cards"></user-list-component>', //templateUrl
+        template: '<user-list-component model="asd" search="search.searchField" cards="$resolve.cards"></user-list-component>', //templateUrl
       ncyBreadcrumb: {
         label: 'userListComponent',
-        parent: 'gmail'
+      },
+      controller: function ($scope) {
+        $scope.asd = $scope.model.Name || {Name : "xxx"}
 
       },
-      // template: '<user-list-component></user-list-component>',
       resolve: {
-        cards: function(PeopleService) {
-          return PeopleService.getAllPeople();
+        cards: function(contactService) {
+          return contactService.getAllContact();
         }
       }
     },
     {
-      name: 'user',
+      name: 'common.user',
       url: '/contacts/{userId}',
       // component: 'userCardComponent',
       template: '<user-card-component card="$resolve.card"></user-card-component>', //templateUrl
       ncyBreadcrumb: {
         label: 'Card {{user.username}}',
-        parent: 'contacts'
       },
       controller: function($scope, $stateParams){
         $scope.user={};
@@ -63,20 +120,27 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
       },
 
       resolve: {
-        card: function(PeopleService, $stateParams) {
-          return PeopleService.getPersonById($stateParams.userId);
+        card: function(contactService, $stateParams) {
+          return contactService.getPersonById($stateParams.userId);
         }
       },
       // template: '<user-card user-id="userId"></user-card>', //templateUrl
     },
     {
-      name: 'gmail',
-      url: '/gmail',
+      name: 'common.allMail',
+      url: '/allmail',
       ncyBreadcrumb: {
         label: 'Gmail'
       },
-
-      template: '<inbox-component></inbox-component>', //templateUrl
+      resolve: {
+        mails: function(mailService) {
+          return mailService.getAllMails();
+        },
+        contacts: function(contactService) {
+          return contactService.getAllContact();
+        }
+      },
+      template: '<inbox-component contacts="$resolve.contacts" mails="$resolve.mails"></inbox-component>', //templateUrl
     }
   ];
 

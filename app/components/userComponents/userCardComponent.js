@@ -46,8 +46,7 @@ angular.module('app').component('userCardComponent', {
         <button type="button" class="btn btn-default"
                 ng-click="userCardService.delete(card, $index)">Удалить</button>
         <button type="button" class="btn btn-default"
-                ui-sref="contacts">Все контакты</button>
-            <!--<a ui-sref="Contacts">Страница контакта</a>-->
+                ui-sref="common.contacts">Все контакты</button>
 
     </div>
     <div class="panel-body">

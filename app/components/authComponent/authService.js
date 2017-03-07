@@ -33,7 +33,7 @@ angular.module('app').factory('authService', function($cookies, $http, $state,us
           authService.status.authorized = true;
           authService.status.role = 'admin';
           console.log('Login success');
-          $state.go('gmail');
+          $state.go('common.allMail');
           return true
         }
       })){

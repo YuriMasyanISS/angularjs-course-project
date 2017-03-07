@@ -31,135 +31,33 @@
             color: #d14836;
         }
     </style>
-    <script src="app/components/userCardComponent.js"></script>
-    <script src="app/components/userListComponent.js"></script>
-    <script src="app/components/loginComponent.js"></script>
+    <script src="app/components/userComponents/userCardComponent.js"></script>
+    <script src="app/components/userComponents/userListComponent.js"></script>
+    <script src="app/components/authComponent/loginComponent.js"></script>
     <script src="assets/angular-breadcrumb.js"></script>
-    <script src="app/components/loginLogoutComponent.js"></script>
-    <script src="app/components/registerComponent.js"></script>
-    <script src="app/authService.js"></script>
-    <script src="app/inboxService.js"></script>
-    <script src="app/peopleService.js"></script>
-    <script src="app/userService.js"></script>
+    <script src="app/components/authComponent/loginLogoutComponent.js"></script>
+    <script src="app/components/authComponent/registerComponent.js"></script>
+    <script src="app/components/authComponent/authService.js"></script>
+    <script src="app/components/mailComponents/inboxService.js"></script>
+    <script src="app/components/userComponents/contactsService.js"></script>
+    <script src="app/components/authComponent/userService.js"></script>
     <script src="app/directives/showDuringResolve.js"></script>
-    <script src="app/components/messageComponent.js"></script>
-    <script src="app/components/inboxComponent.js"></script>
+    <script src="app/components/mailComponents/messageComponent.js"></script>
+    <script src="app/components/mailComponents/inboxComponent.js"></script>
+    <script src="app/components/commonComponents/commonComponent.js"></script>
+    <script src="app/components/commonComponents/searchComponent/searchComponent.js"></script>
+    <script src="app/components/commonComponents/searchComponent/searchService.js"></script>
+    <script src="app/components/mailComponents/mailService.js"></script>
+    <script src="app/components/mailComponents/inboxSidebarComponent.js"></script>
+    <script src="app/components/mailComponents/newMailComponent/newMailComponent.js"></script>
+    <script src="app/components/commonComponents/selectComponent/selectComponent.js"></script>
 </head>
 <body ng-app="app">
 
 <!--          !!!        СМОТРЕТЬ ВНИЗУ              !!!        -->
 
-<div class="container-fluid">
-    <div ncy-breadcrumb></div>
 
-    <header class="row">
-        <div class="logo col-sm-2">
-            <img src="public/img/google.png" alt="Google">
-        </div><!-- logo -->
-
-        <div class="search-bar col-sm-6">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-              <button class="btn btn-main">
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </span>
-            </div><!-- /input-group -->
-
-            <span class="arrow caret"></span>
-        </div><!-- search-bar -->
-
-        <div class="profile col-sm-4">
-            <ul class="profile-icons list-inline pull-right">
-                <login-logout-component></login-logout-component>
-
-                <li>
-                    <span class="glyphicon glyphicon-th"></span>
-                </li>
-                <li class="bell">
-                    <span class="glyphicon glyphicon-bell"></span>
-                </li>
-                <li>
-                    <img src="public/img/profile.jpg" class="img-circle">
-                </li>
-            </ul>
-        </div><!-- profile -->
-    </header>
-
-    <div class="control-bar row">
-        <div class="menu col-sm-2" style="border: solid red">
-            <!--Gmail-->
-            <!--<span class="caret"></span>-->
-<!--
-                <md-select ng-init="users=[{name:'Gmail'},{name:'Contacts'}];user={name:'Gmail'}" ng-model="user.name" ng-model-options="{trackBy: '$value.id'}">
-                    <md-option ng-value="user.name" ng-repeat="user in users">{{ user.name }}</md-option>
-                </md-select>
--->
-            <a ui-sref="gmail"  ui-sref-active="active">Gmail</a>
-            <a ui-sref="contacts"  ui-sref-active="active">Contacts</a>
-
-        </div><!-- menu -->
-
-        <div class="controls col-sm-10">
-            <ul class="control-list list-inline">
-                <li>
-                    <button class="btn btn-control">
-                        <input type="checkbox" class="mail-select">
-                        <span class="caret"></span>
-                    </button>
-                </li>
-                <li>
-                    <button class="btn btn-control" ng-click="$state.go($state.current, {}, {reload: true})">
-                        <span class="glyphicon glyphicon-repeat"></span>
-                        <!--<md-progress-circular style="margin: auto" ng-disabled="false && !vm.activated" class="md-hue-2" md-diameter="20px"></md-progress-circular>-->
-                    </button>
-                </li>
-                <li show-during-resolve>
-                    <md-progress-circular style="margin: auto"  class="md-hue-2" md-diameter="20px"></md-progress-circular>
-
-                </li>
-                <li>
-                    <button class="text-btn btn btn-control">
-                        <strong>More</strong>
-                        <span class="caret"></span>
-                    </button>
-                </li>
-            </ul>
-        </div><!-- controls -->
-    </div><!-- control-bar -->
-
-    <div class="mail row">
-        <div class="sidebar col-sm-2">
-            <button class="compose btn btn-danger">
-                Compose
-            </button>
-
-            <ul class="inbox-sections list-unstyled">
-                <li class="active">
-                    Inbox (100)
-                </li>
-                <li>Sent Mail</li>
-                <li class="pending">
-                    Drafts (7)
-                </li>
-                <li>All Mail</li>
-                <li class="pending">
-                    Spam (1)
-                </li>
-            </ul>
-        </div><!-- sidebar -->
-
-
-<!--          !!!        СМОТРЕТЬ ЗДЕСЬ              !!!        -->
-
-
-        <ui-view></ui-view>
-
-
-<!-- inbox -->
-    </div><!-- mail -->
-</div>
+<ui-view></ui-view>
 
 </body>
 </html>
