@@ -18,7 +18,10 @@ angular.module('app').component('loginLogoutComponent', {
     callbackSwitchon: '&switchon'
   },
   template: `
-<a ng-if="!$ctrl.status.authorized" ui-sref="login" style="border: solid red" ui-sref-active="active">Login</a>
-<a ng-if="$ctrl.status.authorized" ui-sref="login" style="border: solid red" ui-sref-active="active" ng-click="$ctrl.logout()">Logout</a>
+<a ng-if="!$ctrl.status.authorized" ui-sref="login" ui-sref-active="active">Login</a>
+<a ng-if="$ctrl.status.authorized" ui-sref="login" ui-sref-active="active" ng-click="$ctrl.logout()">Logout</a>
 `,
 });
+/*
+style="border: solid red"
+style="border: solid red" */

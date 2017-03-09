@@ -31,7 +31,7 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
         // $scope.search={searchField:'123451'};
       }
       // resolve: {
-      //   cards: function(ContactService) {
+      //   users: function(ContactService) {
       //     return ContactService.getAllContact();
       //   }
       // }
@@ -40,25 +40,22 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
       name: 'common.newMail',
       url: '/newmail',
       // component: 'userListComponent',
-      template: `
-<new-mail-component search="search.searchField"></new-mail-component>
-`, //templateUrl
-      ncyBreadcrumb: {
-        label: '',
-      },
+      template: `<new-mail-component contacts="$resolve.contacts"></new-mail-component>`, //templateUrl
       controller: function ($scope) {
+      },
+      resolve: {
+        contacts: function(contactService) {
+          return contactService.getAllContact();
+        }
       }
+
+
     },
     {
       name: 'common.newContact',
       url: '/newContact',
       // component: 'userListComponent',
-      template: `
-<new-contact-component search="search.searchField"></new-contact-component>
-`, //templateUrl
-      ncyBreadcrumb: {
-        label: '',
-      },
+      template: `<user-new-component></user-new-component>`,
       controller: function ($scope) {
       }
     },
@@ -71,7 +68,7 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
         label: 'register',
       },
       // resolve: {
-      //   cards: function(ContactService) {
+      //   users: function(ContactService) {
       //     return ContactService.getAllContact();
       //   }
       // }
@@ -89,7 +86,7 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
       name: 'common.contacts',
       url: '/contacts',
       // component: 'userListComponent',
-        template: '<user-list-component model="asd" search="search.searchField" cards="$resolve.cards"></user-list-component>', //templateUrl
+        template: '<user-list-component model="asd" search="search.searchField" users="$resolve.users"></user-list-component>', //templateUrl
       ncyBreadcrumb: {
         label: 'userListComponent',
       },
@@ -98,7 +95,7 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
 
       },
       resolve: {
-        cards: function(contactService) {
+        users: function(contactService) {
           return contactService.getAllContact();
         }
       }
@@ -106,11 +103,8 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
     {
       name: 'common.user',
       url: '/contacts/{userId}',
-      // component: 'userCardComponent',
-      template: '<user-card-component card="$resolve.card"></user-card-component>', //templateUrl
-      ncyBreadcrumb: {
-        label: 'Card {{user.username}}',
-      },
+      // component: 'useruserComponent',
+      template: '<user-card-component contact="$resolve.contact"></user-card-component>', //templateUrl
       controller: function($scope, $stateParams){
         $scope.user={};
         if ($stateParams.userId) {$scope.user.username = $stateParams.userId}
@@ -120,11 +114,24 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
       },
 
       resolve: {
-        card: function(contactService, $stateParams) {
+        contact: function(contactService, $stateParams) {
           return contactService.getPersonById($stateParams.userId);
         }
       },
-      // template: '<user-card user-id="userId"></user-card>', //templateUrl
+      // template: '<user-user user-id="userId"></user-user>', //templateUrl
+    },
+    {
+      name: 'common.trashMail',
+      url: '/trashmail',
+      resolve: {
+        mails: function(mailService) {
+          return mailService.getTrashMails();
+        },
+        contacts: function(contactService) {
+          return contactService.getAllContact();
+        }
+      },
+      template: '<inbox-trash-component contacts="$resolve.contacts" mails="$resolve.mails"></inbox-trash-component>', //templateUrl
     },
     {
       name: 'common.allMail',
@@ -150,5 +157,5 @@ angular.module('app').config(($stateProvider, $urlRouterProvider) => {
   });
 
 
-  $urlRouterProvider.otherwise('contacts');
+  $urlRouterProvider.otherwise('login');
 });

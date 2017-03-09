@@ -2,7 +2,7 @@
  * Created by y.masyan on 08.02.2017.
  */
 
-angular.module('app', ['ui.router', 'ngMaterial','ncy-angular-breadcrumb','ngCookies'])
+angular.module('app', ['ui.router', 'ngMaterial','ngMessages','ncy-angular-breadcrumb','ngCookies'])
   .run(function ($http, $rootScope, authService, searchService, $state) {
     $rootScope.$on('$stateChangeStart', function (event, toState) {
       if (toState.name !== 'login' && toState.name !== 'register' && !authService.status.authorized) {

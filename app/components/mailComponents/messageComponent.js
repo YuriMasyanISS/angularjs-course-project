@@ -15,10 +15,7 @@ angular.module('app').component('messageComponent', {
         </ul>
 
         <span class="contact-names">
-            {{ $ctrl.contact($ctrl.mail.to)}} 
-            <!--{{ $ctrl.mail.to}}-->
-            <!--{{ $ctrl.contacts}}-->
-             
+            {{ $ctrl.contact($ctrl.mail.to)}}              
                 </span>
     </div><!-- contact -->
 
@@ -29,14 +26,12 @@ angular.module('app').component('messageComponent', {
             <p>{{$ctrl.mail.body}}</p>
         </div>
     </div><!-- message -->
+          <md-icon md-font-library="material-icons"            
+                   ng-click="$ctrl.callbackDelete({item: $ctrl.mail})"
+                   class="md-secondary md-hue-3">delete
+          </md-icon>
 
-    <div class="date col-sm-2">
-        <date class="pull-right">
-            <!--{{$ctrl.mail.messageReceived | date}}-->
-            <!--{{$ctrl.time | date}}-->
-            {{($ctrl.mail.messageReceived)}}</date>
-    </div><!-- date -->
-    <button ng-click="$ctrl.callbackDelete({item: $ctrl.mail})">Delete</button>
+    <!--<button ng-click="$ctrl.callbackDelete({item: $ctrl.mail})">Delete</button>-->
 </li>
 `,
   controller: function () {
@@ -51,7 +46,7 @@ angular.module('app').component('messageComponent', {
     mail: '<',
     contacts: '<',
     time: '<',
-    exists: '=',
+    exists: '<',
     callbackDelete: '&delete',
     toggle: '&',
   }

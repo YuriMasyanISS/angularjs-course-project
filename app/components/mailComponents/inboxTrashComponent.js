@@ -1,19 +1,17 @@
 /**
  * Created by y.masyan on 06.03.2017.
  */
-angular.module('app').component('newMailComponent', {
+angular.module('app').component('inboxTrashComponent', {
   bindings: {
     mails: "<",
     contacts: "<",
   },
   template: `
 <inbox-sidebar-component></inbox-sidebar-component>
+        <div class="controls col-sm-10">
+        <select-component is-checked="$ctrl.isChecked" toggle-all="$ctrl.toggleAll()" callback-delete="$ctrl.callbackRestoreItems()"></select-component>            
+        </div><!-- controls -->
 <div class="inbox col-sm-10">
-    <!--<input type="text" class="form-control" placeholder="search field" ng-model="text">-->
-    <md-checkbox aria-label="Select All" ng-checked="$ctrl.isChecked()" md-indeterminate="$ctrl.isIndeterminate()" ng-click="$ctrl.toggleAll()">
-      <span ng-if="$ctrl.isChecked()">Un-</span>Select All
-    </md-checkbox>
-    <input type="checkbox" ng-checked="$ctrl.isChecked()" md-indeterminate="$ctrl.isIndeterminate()" ng-click="$ctrl.toggleAll()"><span ng-if="$ctrl.isChecked()">Un-</span>Select All
 
     <ul class="list-unstyled">
         <message-component mail="mail" 
@@ -22,20 +20,29 @@ angular.module('app').component('newMailComponent', {
         ng-repeat="mail in $ctrl.mails | orderBy: 'messageReceived' : true | filter: $ctrl.searchFilter" toggle="$ctrl.toggle(item)" exists="$ctrl.exists"></message-component>
     </ul>
 </div>`,
-  controller: function (searchService) {
+  controller: function (searchService,mailService) {
     let that = this;
     this.searchField = searchService.searchField;
 
+    this.callbackRestoreItems=function () {
+      var items = that.selected;
+      console.log(items);
+      
+      mailService.restoreMails(items)
+    };
+
+
     this.searchFilter = function (item) {
-      // let email = item.email.toLowerCase();
       let body = item.body.toLowerCase();
       let search = searchService.searchField.search.toLowerCase();
       if (body.indexOf(search) > -1 ) {return true}
     };
+    this.deleteItem = (item) => {
+      // that.mails.splice(that.mails.indexOf(item), 1)
+      console.log(item);
+      
+      mailService.restoreMails([item])
 
-
-    this.deleteItem = (index) => {
-      that.mails.splice(that.mails.indexOf(index), 1)
     };
     that.selected = [];
     that.toggle = function (item) {

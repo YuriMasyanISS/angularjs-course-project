@@ -1,21 +1,23 @@
 /**
  * Created by y.masyan on 20.02.2017.
  */
-angular.module('app').component('userCardComponent', {
+angular.module('app').component('userNewComponent', {
   controller: function (contactService) {
     this.contactService = contactService;
+    this.contact ={};
+
   },
   bindings: {
-    contact: '<',
+    user: '<',
     callbackSwitchoff: '&switchoff',
     callbackSwitchon: '&switchon'
   },
   template: `
 <user-sidebar-component></user-sidebar-component>
-    <div class="col-md-8">
+    <div class="col-md-8" >
 
     <md-content>
-        <form ng-submit="$ctrl.contactService.saveUser($ctrl.contact)"  name="contactForm" style="margin: 20px">
+        <form ng-submit="$ctrl.contactService.newUser($ctrl.contact)" name="contactForm" >
 
             <div layout="column">
                 <md-input-container >
